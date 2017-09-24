@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="./node_modules/material-design-icons/">
     <style type='text/css'>
         @font-face {
             font-family: 'Material Icons';
@@ -58,6 +57,12 @@
         });
 
         var buttonedNodes = [];
+        var transcriptNodes = [];
+        var names = [
+            'Jane',
+            'Mark',
+            'Luci',
+        ];
 
         function createButton(key, node) {
             if (buttonedNodes.indexOf(key) !== -1) {
@@ -95,11 +100,26 @@
             $('.add-node').click(function() {
                 var name = $(this).data('name');
 
+                if (transcriptNodes.indexOf(name) !== -1) {
+                    console.log('Warning');
+                    return;
+                }
+
+                transcriptNodes.push(name);
+
                 // Update the suggestions window
                 $("#suggestions").attr('src', 'https://duckduckgo.com?q=' + nodeData[name].label);
 
                 // Create a new node
                 spawnNode(name);
+
+                var time = (new Date()) // Retrieve the current dateTime object.
+                    .toTimeString() // Retrieve the time as string.
+                    .substr(0,5) // Extract the hours and minutes.
+                ;
+                var author = names[Math.floor(Math.random() * names.length)];
+
+                $('#transcript').append(author + " at " + time + " | " + $(this).text() + "<br>");
 
                 $(this).off('click');
                 $(this).hide(500);
@@ -128,9 +148,9 @@
     </style>
 </head>
 <body onload="onLoad()" style="height: 100%">
-    <div class="row" style="height: 80%">
-        <div id='graphContainer' class="col-sm-9" style="height: 100%"></div>
-        <div class="col-sm-3" style="background-color:#cccccc; height: 100%; padding: 0">
+    <div class="row" style="height: 70%">
+        <div id='graphContainer' class="col-sm-8" style="height: 100%"></div>
+        <div class="col-sm-4" style="background-color:#cccccc; height: 100%; padding: 0">
             <iframe id="suggestions" src="" style="width: 100%; height: 100%; overflow:hidden;" frameborder="0"></iframe>
         </div>
     </div>
@@ -142,10 +162,12 @@
                         <i class="material-icons" style="font-size: 70px">mic_none</i>
                     </div>
                 </div>
-                <div class="col-sm-11">
+                <div class="col-sm-7">
                     <h2>Input</h2>
-                    <div id="add-node-buttons">
-                    </div>
+                    <div id="transcript"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div id="add-node-buttons" style="padding-top: 20px"></div>
                 </div>
             </div>
         </div>
