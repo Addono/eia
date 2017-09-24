@@ -7,52 +7,48 @@ var nodeData = {
     'root': {
         'target': null,
         'label' : 'BurgerX',
+        'text'  : 'So we want to market <b>BurgerX</b>.',
     },
     '1': {
         'target': 'root',
         'label' : 'Advertisement',
+        'text'  : '<b>Advertisements</b> always worked quite good for us.'
     },
     '2': {
         'target': '1',
         'label' : 'News papers',
+        'text'  : 'We could make use of some large ads in <b>news papers</b>',
     },
     '3': {
         'target': '1',
         'label' : 'Magazines',
+        'text'  : '<b>Magazine</b> advertorials also work too.',
     },
     '4': {
         'target': 'root',
-        'label' : 'wut',
+        'label' : 'Mouth to mouth',
+        'text'  : '<b>Mouth to mouth</b> has always been important.',
     },
     '5': {
-        'target': 'test3',
-        'label' : 'test',
+        'target': '4',
+        'label' : 'Social media',
+        'text'  : 'Although we have never used it, our competitors seem to really benefit from <b>social media</b>',
     },
     '6': {
-        'target': 'test5',
-        'label' : 'test',
+        'target': '5',
+        'label' : 'Influencers',
+        'text'  : 'We could contact some <b>influencers</b> to get some traction on social media.',
     },
     '7': {
         'target': 'test5',
         'label' : 'test',
+        'text'  : '',
     },
     '8': {
         'target': 'test5',
         'label' : 'test',
     },
 };
-
-var initNodes = [
-    'root',
-    'test',
-    'test2',
-    'test3',
-];
-
-// for (i = 0; i < initNodes.length; i++) {
-//     var name = initNodes[i];
-//     spawnNode(name);
-// }
 
 function spawnNode(name) {
     // Check if the node was already added.
@@ -81,7 +77,7 @@ function spawnNode(name) {
 
 function onLoad() {
     var layout = Viva.Graph.Layout.forceDirected(graph, {
-        springLength: 8,
+        springLength: 15,
         springCoeff: 0.0001,
         dragCoeff: 0.03,
         gravity: -10
