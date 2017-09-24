@@ -6,37 +6,37 @@ var addedNodes = [];
 var nodeData = {
     'root': {
         'target': null,
-        'label' : 'test',
+        'label' : 'BurgerX',
     },
-    'test': {
+    '1': {
         'target': 'root',
-        'label' : 'test',
+        'label' : 'Advertisement',
     },
-    'test2': {
+    '2': {
+        'target': '1',
+        'label' : 'News papers',
+    },
+    '3': {
+        'target': '1',
+        'label' : 'Magazines',
+    },
+    '4': {
         'target': 'root',
-        'label' : 'test',
+        'label' : 'wut',
     },
-    'test3': {
-        'target': 'root',
-        'label' : 'test',
-    },
-    'test4': {
-        'target': 'root',
-        'label' : 'test',
-    },
-    'test5': {
+    '5': {
         'target': 'test3',
         'label' : 'test',
     },
-    'test6': {
+    '6': {
         'target': 'test5',
         'label' : 'test',
     },
-    'test7': {
+    '7': {
         'target': 'test5',
         'label' : 'test',
     },
-    'test8': {
+    '8': {
         'target': 'test5',
         'label' : 'test',
     },
