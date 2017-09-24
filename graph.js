@@ -116,7 +116,7 @@ function onLoad() {
         ui.data = node.data;
 
         var pos = layout.getNodePosition(node.id);
-        // placeNode(ui, pos);
+        placeNode(ui, pos);
         return ui;
     }
 
