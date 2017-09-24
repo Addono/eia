@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test</title>
+
+
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/vivagraphjs/dist/vivagraph.js"></script>
+    <script src="./graph.js"></script>
+    <script type="text/javascript">
+        // Add node when button is clicked.
+        $(document).ready(function() {
+            bindClick();
+        });
+
+        function createButton(node) {
+            $('#add-node-buttons').append(
+                "<a href=\"#\" class=\"btn btn-default add-node\" data-name=\"test4\" role=\"button\" onclick=\"spawnNode('" + key + "')\">" + node.label + "</a>"
+            );
+
+            // Ensure that also a click event handler is added to the newly added button.
+            bindClick();
+        }
+
+        function repopulateButtons(name) {
+            for (key in nodeData) {
+                var node = nodeData[key];
+
+                if (node.target === name) {
+                    createButton(node);
+                }
+            }
+        }
+
+        function bindClick() {
+            $('.add-node').click(function() {
+                var name = $(this).data('name');
+
+                spawnNode(name);
+                $(this).hide(500);
+
+                // Add all buttons which become available now.
+                repopulateButtons(name);
+            });
+        }
+    </script>
+
+    <style type='text/css'>
+        #graphContainer {
+            position: relative;
+            background-color: black;
+        }
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="onLoad()" style="height: 100%">
+    <div class="row" style="height: 80%">
+        <div id='graphContainer' class="col-sm-9" style="height: 100%"></div>
+        <div class="col-sm-3" style="background-color:#cccccc; height: 100%">
+            abcdef
+        </div>
+    </div>
+    <div class="row" style="height: 100%">
+        <div style="background-color:#ff00ff; height: inherit">
+            <div class="container">
+                <div class="row" id="add-node-buttons">
+                    <a href="#" class="btn btn-default add-node" data-name="test5" role="button" onclick="spawnNode('test')">Link Button</a>
+                    <a href="#" class="btn btn-default add-node" data-name="test4" role="button" onclick="spawnNode('test')">Link Button</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
