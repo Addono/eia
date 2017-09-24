@@ -101,7 +101,7 @@ function onLoad() {
         var ui = Viva.Graph.svg('g');
         var svgText = Viva.Graph.svg('text')
             .attr('y', '-4px')
-            .attr('fill', '#cccccc')
+            .attr('fill', '#222222')
             .text(node.data.label)
         ;
         var img = Viva.Graph.svg('image')
