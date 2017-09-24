@@ -1,5 +1,6 @@
 /*global Viva*/
 var graph = Viva.Graph.graph();
+var addedNodes = [];
 
 // Assumed to be a tree
 var nodeData = {
@@ -48,12 +49,19 @@ var initNodes = [
     'test3',
 ];
 
-for (i = 0; i < initNodes.length; i++) {
-    var name = initNodes[i];
-    spawnNode(name);
-}
+// for (i = 0; i < initNodes.length; i++) {
+//     var name = initNodes[i];
+//     spawnNode(name);
+// }
 
 function spawnNode(name) {
+    // Check if the node was already added.
+    if (addedNodes.indexOf(name) !== -1) {
+        return;
+    }
+
+    addedNodes.push(name);
+
     var data = {
         width: 25,
         height: 25,
@@ -65,6 +73,7 @@ function spawnNode(name) {
     graph.addNode(name, data);
 
     var target = nodeData[name].target;
+
     if (target !== null) {
         graph.addLink(name, target);
     }
@@ -72,10 +81,10 @@ function spawnNode(name) {
 
 function onLoad() {
     var layout = Viva.Graph.Layout.forceDirected(graph, {
-        springLength : 80,
-        springCoeff : 0.0008,
-        dragCoeff : 0.02,
-        gravity : -1.2
+        springLength: 8,
+        springCoeff: 0.0001,
+        dragCoeff: 0.03,
+        gravity: -10
     });
 
     var graphics = Viva.Graph.View.svgGraphics();
