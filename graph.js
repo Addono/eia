@@ -133,6 +133,13 @@ function onLoad() {
 
         var pos = layout.getNodePosition(node.id);
         placeNode(ui, pos);
+
+        // Make the nodes click-able
+        $(ui).click(function() {
+            // Update the suggestions window.
+            $("#suggestions").attr('src', 'https://duckduckgo.com?q=' + node.data.label);
+        });
+
         return ui;
     }
 
