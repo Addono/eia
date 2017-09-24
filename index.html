@@ -82,7 +82,10 @@
             for (key in nodeData) {
                 var node = nodeData[key];
 
+                console.log(name + " " + node.target);
+
                 if (node.target === name) {
+                    console.log('Success!');
                     createButton(key, node);
                 }
             }
