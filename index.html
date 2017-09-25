@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap-tour/build/css/bootstrap-tour.min.css">
     <style type='text/css'>
         @font-face {
             font-family: 'Material Icons';
@@ -49,86 +50,9 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/vivagraphjs/dist/vivagraph.js"></script>
-    <script src="./graph.js"></script>
-    <script type="text/javascript">
-        // Add node when button is clicked.
-        $(document).ready(function() {
-            createButton('root', nodeData.root);
-        });
-
-        var buttonedNodes = [];
-        var transcriptNodes = [];
-        var names = [
-            'Jane',
-            'Mark',
-            'Luci',
-        ];
-
-        function createButton(key, node) {
-            if (buttonedNodes.indexOf(key) !== -1) {
-                console.log('Warning');
-                return;
-            }
-
-            buttonedNodes.push(key);
-
-            $('#add-node-buttons').append(
-                "<button style=\"justify-content: center\" class=\"btn btn-default add-node\" data-name=\"" + key + "\" onclick=\"spawnNode('" + key + "')\">"
-                + "<span class=\"glyphicon glyphicon-plus\"></span> "
-                + node.text
-                + "</button>"
-            );
-
-            // Ensure that also a click event handler is added to the newly added button.
-            bindClick();
-        }
-
-        function repopulateButtons(name) {
-            for (key in nodeData) {
-                var node = nodeData[key];
-
-                console.log(name + " " + node.target);
-
-                if (node.target == name) {
-                    console.log('Success!');
-                    createButton(key, node);
-                }
-            }
-        }
-
-        function bindClick() {
-            $('.add-node').click(function() {
-                var name = $(this).data('name');
-
-                if (transcriptNodes.indexOf(name) !== -1) {
-                    console.log('Warning');
-                    return;
-                }
-
-                transcriptNodes.push(name);
-
-                // Update the suggestions window
-                $("#suggestions").attr('src', 'https://duckduckgo.com?q=' + nodeData[name].label);
-
-                // Create a new node
-                spawnNode(name);
-
-                var time = (new Date()) // Retrieve the current dateTime object.
-                    .toTimeString() // Retrieve the time as string.
-                    .substr(0,5) // Extract the hours and minutes.
-                ;
-                var author = names[Math.floor(Math.random() * names.length)];
-
-                $('#transcript').append(author + " at " + time + " | " + $(this).text() + "<br>");
-
-                $(this).off('click');
-                $(this).hide(500);
-
-                // Add all buttons which become available now.
-                repopulateButtons(name);
-            });
-        }
-    </script>
+    <script src="./node_modules/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+    <script src="./js/tour.js"></script>
+    <script src="./js/graph.js"></script>
 
     <style type='text/css'>
         #graphContainer {
@@ -147,7 +71,7 @@
         }
     </style>
 </head>
-<body onload="onLoad()" style="height: 100%">
+<body onload="onLoad(); initTour()" style="height: 100%">
     <div class="row" style="height: 70%">
         <div id='graphContainer' class="col-sm-8" style="height: 100%"></div>
         <div class="col-sm-4" style="height: 100%; padding: 0">
@@ -158,15 +82,15 @@
         <div style="background-color:#aaa; height: inherit">
             <div class="container-fluid" style="height: 100%">
                 <div class="col-sm-1" style="height: 100%">
-                    <div style="display:flex;justify-content:center;align-items:center;padding: 60%">
+                    <div id="voice" style="display:flex;justify-content:center;align-items:center;padding: 60%">
                         <i class="material-icons" style="font-size: 70px">mic_none</i>
                     </div>
                 </div>
                 <div class="col-sm-7">
-                    <h2>Input</h2>
+                    <h2 id="input">Input</h2>
                     <div id="transcript"></div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4" id="demo">
                     <div id="add-node-buttons" style="padding-top: 20px"></div>
                 </div>
             </div>

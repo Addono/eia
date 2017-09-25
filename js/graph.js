@@ -68,6 +68,84 @@ var nodeData = {
     },
 };
 
+// Add node when button is clicked.
+$(document).ready(function() {
+    createButton('root', nodeData.root);
+});
+
+var buttonedNodes = [];
+var transcriptNodes = [];
+var names = [
+    'Jane',
+    'Mark',
+    'Luci',
+];
+
+function createButton(key, node) {
+    if (buttonedNodes.indexOf(key) !== -1) {
+        console.log('Warning');
+        return;
+    }
+
+    buttonedNodes.push(key);
+
+    $('#add-node-buttons').append(
+        "<button style=\"justify-content: center\" class=\"btn btn-default add-node\" data-name=\"" + key + "\" onclick=\"spawnNode('" + key + "')\">"
+        + "<span class=\"glyphicon glyphicon-plus\"></span> "
+        + node.text
+        + "</button>"
+    );
+
+    // Ensure that also a click event handler is added to the newly added button.
+    bindClick();
+}
+
+function repopulateButtons(name) {
+    for (key in nodeData) {
+        var node = nodeData[key];
+
+        console.log(name + " " + node.target);
+
+        if (node.target == name) {
+            console.log('Success!');
+            createButton(key, node);
+        }
+    }
+}
+
+function bindClick() {
+    $('.add-node').click(function() {
+        var name = $(this).data('name');
+
+        if (transcriptNodes.indexOf(name) !== -1) {
+            console.log('Warning');
+            return;
+        }
+
+        transcriptNodes.push(name);
+
+        // Update the suggestions window
+        $("#suggestions").attr('src', 'https://duckduckgo.com?q=' + nodeData[name].label);
+
+        // Create a new node
+        spawnNode(name);
+
+        var time = (new Date()) // Retrieve the current dateTime object.
+            .toTimeString() // Retrieve the time as string.
+            .substr(0,5) // Extract the hours and minutes.
+        ;
+        var author = names[Math.floor(Math.random() * names.length)];
+
+        $('#transcript').append(author + " at " + time + " | " + $(this).text() + "<br>");
+
+        $(this).off('click');
+        $(this).hide(500);
+
+        // Add all buttons which become available now.
+        repopulateButtons(name);
+    });
+}
+
 function spawnNode(name) {
     // Check if the node was already added.
     if (addedNodes.indexOf(name) !== -1) {
