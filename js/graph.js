@@ -34,8 +34,8 @@ var nodeData = {
     },
     '4': {
         'target': 'root',
-        'label' : 'Mouth to mouth',
-        'text'  : '<b>Mouth to mouth</b> has always been important.',
+        'label' : 'Word of mouth',
+        'text'  : '<b>Word of mouth</b> has always been important.',
         'size'  : 1.4,
         'img'   : 'mouth.jpg',
     },
