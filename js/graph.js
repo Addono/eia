@@ -136,7 +136,7 @@ function bindClick() {
         ;
         var author = names[Math.floor(Math.random() * names.length)];
 
-        $('#transcript').append(author + " at " + time + " | " + $(this).text() + "<br>");
+        $('#transcript').append("<b>" + author + "</b> at " + time + " | " + $(this).text() + "<br>");
 
         $(this).off('click');
         $(this).hide(500);
